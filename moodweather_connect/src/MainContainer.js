@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // PUBLIC_INTERFACE
 /**
@@ -21,6 +21,32 @@ function MainContainer() {
     '--mw-primary': '#4A90E2',
     '--mw-secondary': '#F5A623',
     '--mw-accent': '#7ED957',
+  };
+
+  // React state for the city input and mood dropdown
+  const [city, setCity] = useState('');
+  const [mood, setMood] = useState('');
+
+  // Handlers that update state on field change
+  // These handlers ensure the components are controlled
+  // and accessible for further logic
+
+  // PUBLIC_INTERFACE
+  /**
+   * Handles input changes for city.
+   * @param {React.ChangeEvent<HTMLInputElement>} e
+   */
+  const handleCityChange = (e) => {
+    setCity(e.target.value);
+  };
+
+  // PUBLIC_INTERFACE
+  /**
+   * Handles selection changes for mood.
+   * @param {React.ChangeEvent<HTMLSelectElement>} e
+   */
+  const handleMoodChange = (e) => {
+    setMood(e.target.value);
   };
 
   // Input, dropdown, and button styles tailored to palette and accessibility.
@@ -65,6 +91,7 @@ function MainContainer() {
         <input
           id="city-input"
           name="city"
+          type="text"
           placeholder="Enter your city..."
           style={{
             padding: "10px 14px",
@@ -77,6 +104,10 @@ function MainContainer() {
             background: "rgba(255,255,255,0.96)",
             fontWeight: 400
           }}
+          aria-label="Enter city"
+          autoComplete="off"
+          value={city}
+          onChange={handleCityChange}
           disabled={false}
         />
 
@@ -90,7 +121,7 @@ function MainContainer() {
         <select
           id="mood-dropdown"
           name="mood"
-          defaultValue=""
+          aria-label="Select your mood"
           style={{
             padding: "10px 14px",
             borderRadius: "6px",
@@ -101,6 +132,8 @@ function MainContainer() {
             fontSize: "1rem",
             marginBottom: "0"
           }}
+          value={mood}
+          onChange={handleMoodChange}
           disabled={false}
         >
           <option value="" disabled>
